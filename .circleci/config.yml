@@ -41,7 +41,7 @@ jobs:
 
 workflows:
   version: 2.1
-  image:
+  test_and_build:
     jobs:
       - test
       - build_image:
