@@ -17,11 +17,11 @@ public class AddressAdapterController {
 
     @GetMapping("address/{localization}")
     public Address getAddress(@RequestParam Integer postalCode,
-                              @RequestParam(required = false) String subDistrictKey,
-                              @RequestParam(required = false) String provinceKey,
-                              @RequestParam(required = false) String districtKey,
+                              @RequestParam(value = "subDistrictKey",required = false) String subDistrictKey,
+                              @RequestParam(value = "districtKey",required = false) String districtKey,
+                              @RequestParam(value = "provinceKey",required = false) String provinceKey,
                               @PathVariable String localization) {
-        return retrieveAddressPort.getAddress(postalCode, subDistrictKey, provinceKey, districtKey, localization);
+        return retrieveAddressPort.getAddress(postalCode, subDistrictKey, districtKey, provinceKey, localization);
     }
 
     @GetMapping("provinces/{localization}/{key}")
