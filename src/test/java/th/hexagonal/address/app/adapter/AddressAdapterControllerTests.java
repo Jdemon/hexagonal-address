@@ -1,6 +1,5 @@
 package th.hexagonal.address.app.adapter;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,14 +20,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class AddressAdapterControllerTests {
 
+    private static List<KeyValue> provincesEn = Arrays.asList(new KeyValue("10", "Bangkok"));
+    private static List<KeyValue> districtsEn = Arrays.asList(new KeyValue("1021", "Bang Khun Thian"));
+    private static List<KeyValue> subDistrictsEn = Arrays.asList(new KeyValue("102105", "Tha Kham"));
+    private static List<KeyValue> provincesTh = Arrays.asList(new KeyValue("10", "กรุงเทพมหานคร"));
+    private static List<KeyValue> districtsTh = Arrays.asList(new KeyValue("1021", "บางขุนเทียน"));
+    private static List<KeyValue> subDistrictsTh = Arrays.asList(new KeyValue("102105", "ท่าข้าม"));
     private static final String EN = "en";
     private static final String TH = "th";
-    List<KeyValue> provincesEn = Arrays.asList(new KeyValue("10", "Bangkok"));
-    List<KeyValue> districtsEn = Arrays.asList(new KeyValue("1021", "Bang Khun Thian"));
-    List<KeyValue> subDistrictsEn = Arrays.asList(new KeyValue("102105", "Tha Kham"));
-    List<KeyValue> provincesTh = Arrays.asList(new KeyValue("10", "กรุงเทพมหานคร"));
-    List<KeyValue> districtsTh = Arrays.asList(new KeyValue("1021", "บางขุนเทียน"));
-    List<KeyValue> subDistrictsTh = Arrays.asList(new KeyValue("102105", "ท่าข้าม"));
 
     @Mock
     private IRetrieveAddressPort retrieveAddressPort;

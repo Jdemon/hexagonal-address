@@ -1,0 +1,52 @@
+version: 2.1
+
+executors:
+  maven:
+    docker:
+      - image: circleci/openjdk:11-jdk-browsers
+
+jobs:
+  test:
+    executor: maven
+    steps:
+      - checkout
+      - restore_cache:
+          key: address-{{ checksum "pom.xml" }}
+      - run: chmod +x ./install_lib.sh && ./install_lib.sh
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: address-{{ checksum "pom.xml" }}
+      - run: mvn clean test
+      - run: mvn jacoco:report
+      - store_test_results:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target/site/jacoco
+  build_image:
+    executor: maven
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+      - restore_cache:
+          key: address-{{ checksum "pom.xml" }}
+      - run:
+          name: Build the binary
+          command: mvn clean spring-boot:build-image -DskipTests
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: address-{{ checksum "pom.xml" }}
+
+workflows:
+  version: 2.1
+  image:
+    jobs:
+      - test
+      - build_image:
+          requires:
+            - test
+
+
