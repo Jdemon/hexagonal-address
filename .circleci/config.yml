@@ -12,7 +12,6 @@ jobs:
       - checkout
       - restore_cache:
           key: address-{{ checksum "pom.xml" }}
-      - run: chmod +x ./install_lib.sh && ./install_lib.sh
       - run: mvn dependency:go-offline
       - save_cache:
           paths:
